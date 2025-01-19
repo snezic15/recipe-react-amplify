@@ -1,0 +1,137 @@
+.recipePage {
+  background-color: #faebd7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.recipeContainer {
+  padding: 20px;
+  width: 80%;
+  margin: 0 auto;
+  flex: 1;
+}
+
+.recipeTitle {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #000000;
+}
+
+.recipeServes {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.recipeImage {
+  width: 60%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 300px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.recipeDescription {
+  margin-bottom: 20px;
+  color: #555;
+  text-align: center;
+}
+
+.divider {
+  width: 80%; /* Same width as the image */
+  border: none; /* Remove default border */
+  border-top: 1px solid #ccc; /* Light gray divider line */
+}
+
+.recipeContent {
+  display: flex;
+  position: relative;
+}
+
+.dividerVertical {
+  position: absolute;
+  top: -8px; /* Start from the top of the container */
+  left: 50%; /* Position in the middle horizontally */
+  transform: translateX(-50%); /* Adjust for exact centering */
+  width: 1px;
+  height: 100%; /* Span the full height of the container */
+  background-color: #ccc; /* Light gray divider line */
+}
+
+.dividerContent {
+  display: none;
+}
+
+.ingredients,
+.method {
+  width: 60%;
+  padding: 0 20px;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #000000;
+  text-align: center;
+}
+
+.sectionHeader {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  color: #000000;
+}
+
+.ingredientSection {
+  margin-bottom: 15px;
+}
+
+.ingredient {
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.methodSteps {
+  list-style-type: decimal;
+  padding-left: 40px;
+}
+
+.methodStep {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .recipeContent {
+    flex-direction: column;
+  }
+
+  .ingredients,
+  .method {
+    width: 100%;
+  }
+
+  .dividerVertical {
+    display: none;
+  }
+
+  .recipeImage {
+    width: 100%;
+  }
+
+  .divider {
+    width: 100%;
+  }
+
+  .dividerContent {
+    width: 100%; /* Same width as the image */
+    margin: 20px auto; /* Center the divider */
+    border: none; /* Remove default border */
+    border-top: 1px solid #ccc; /* Light gray divider line */
+    display: block;
+  }
+}

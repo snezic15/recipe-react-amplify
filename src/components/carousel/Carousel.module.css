@@ -1,0 +1,17 @@
+.carouselContainer {
+  width: 80vw; /* Set carousel width to 80% of the viewport width */
+  margin: 0 auto; /* Center the carousel horizontally */
+}
+
+.slide {
+  padding: 10px 20px; /* Add padding on each side for a 50px total gap */
+  box-sizing: border-box; /* Important: include padding in the element's width */
+  transition: transform 0.3s ease;
+  display: flex;
+  justify-content: center;
+}
+
+/* Adjustments for centerMode and padding */
+.slick-center .slide {
+  padding: 0; /* Remove extra padding on the center slide */
+}

@@ -1,0 +1,68 @@
+/* General Styling */
+.homepage {
+  font-family: sans-serif;
+  background-color: #faebd7; /* Light beige background */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Welcome Section Styling */
+.welcomeSection {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.welcomeContainer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.welcomeSection h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.welcomeSection p {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.joinButton,
+.loginButton {
+  padding: 12px 25px;
+  background-color: #3498db; /* Blue buttons */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+.loginButton {
+  background-color: #e5e5e5;
+  color: black;
+}
+
+/* Featured Recipes Styling */
+.featuredRecipes {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.featuredRecipes h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+/* Responsive Design (Basic) */
+@media (max-width: 768px) {
+  .welcomeSection {
+    padding: 30px 20px;
+  }
+}

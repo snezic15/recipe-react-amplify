@@ -1,0 +1,40 @@
+{
+  "id": "recipe-1",
+  "name": "Recipe 1",
+  "serves": 4,
+  "image": "../temp/temp_photo.jpg",
+  "description": "Sample description of the recipe",
+  "ingredients": [
+    {
+      "section": "section 1",
+      "ingredients": [
+        {
+          "name": "ingredient 1",
+          "quantity": 1,
+          "unit": "cup"
+        },
+        {
+          "name": "ingredient 2",
+          "quantity": 2,
+          "unit": "tbsp"
+        }
+      ]
+    },
+    {
+      "section": "section 2",
+      "ingredients": [
+        {
+          "name": "ingredient 3",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "ingredient 4",
+          "quantity": 1,
+          "unit": "tbsp"
+        }
+      ]
+    }
+  ],
+  "method": ["step 1", "step 2", "step 3", "step 4"]
+}

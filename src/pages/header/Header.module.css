@@ -1,0 +1,25 @@
+.header {
+  background-color: #964b00;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.searchBar {
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+.profileIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ccc; /* Placeholder color */
+  cursor: pointer;
+}
+
+/* No mobile-specific styles needed for the search bar anymore */

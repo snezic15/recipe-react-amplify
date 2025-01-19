@@ -1,0 +1,90 @@
+/* Same CSS as before */
+.menuContainer {
+  position: relative;
+  display: inline-block;
+  z-index: 10; /* Ensure menu is above other content */
+}
+
+.hamburgerButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10; /* Ensure button is above the menu */
+  flex-direction: column; /* Align bars vertically */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  width: 45px; /* Match initial button size */
+  height: 45px; /* Match initial button size */
+  position: relative;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 5px 0;
+  transition: all 0.3s ease;
+}
+
+/* Styles for open menu */
+.menu {
+  position: fixed; /* Changed to fixed positioning */
+  top: 0;
+  left: 0; /* Start flush with the left side */
+  width: 250px;
+  height: 100vh;
+  background-color: #964b00;
+  z-index: 5;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: translateX(-100%); /* Initially hidden off-screen */
+  transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.menu.open {
+  transform: translateX(0); /* Slide in from the left */
+}
+
+.linksContainer {
+  padding: 68px 0px 20px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px; /* Add spacing between the boxes */
+}
+
+.link {
+  display: block;
+  color: #000000;
+  text-decoration: none;
+  padding: 15px 0;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #000;
+  background-color: #faebd7; /* Background color for the boxes */
+  text-align: center; /* Center the link text */
+}
+
+.link:hover {
+  background-color: #eec296; /* Slightly darker background on hover */
+  text-decoration: none; /* Remove underline on hover */
+}
+
+/* Rotate bars for "X" icon */
+.bar.open:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.bar.open:nth-child(2) {
+  opacity: 0; /* Hide middle bar */
+}
+
+.bar.open:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+.footerText {
+  color: #000000;
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 20px;
+}
