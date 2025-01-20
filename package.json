@@ -11,6 +11,7 @@
     "check-deps": "depcheck"
   },
   "dependencies": {
+    "@aws-amplify/ui-react-storage": "^3.7.0",
     "@types/react-slick": "^0.23.13",
     "amplify-vite-react-template": "file:",
     "aws-amplify": "^6.12.1",

@@ -4,16 +4,22 @@ import styles from "./RecipeDetails.module.css"
 import Header from "../header/Header"
 import Footer from "../footer/Footer"
 import NotFound from "../not-found/NotFound"
-//Temp
-import Recipe1 from "../../temp/recipe-1.json"
+import { getUrl, downloadData } from "aws-amplify/storage"
 
-function RecipeDetails() {
+async function RecipeDetails() {
   const { id } = useParams()
 
-  // Fetch recipe data based on id (replace with your data fetching logic)
-  const recipe = Recipe1
+  let recipe, imageLink
 
-  if (!recipe || recipe.id !== id) {
+  try {
+    imageLink = await getUrl({ path: `recipe-data/${id}/image.*` })
+  } catch (error) {
+    return <NotFound />
+  }
+
+  try {
+    recipe = await downloadData({ path: `recipe-data/${id}/recipe.json` })
+  } catch (error) {
     return <NotFound />
   }
 
@@ -25,7 +31,7 @@ function RecipeDetails() {
         <p className={styles.recipeServes}>Serves: {recipe.serves}</p>
 
         <img
-          src={recipe.image}
+          src={imageLink.url.toString()}
           alt={recipe.name}
           className={styles.recipeImage}
         />
