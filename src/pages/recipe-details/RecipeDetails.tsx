@@ -16,15 +16,16 @@ function RecipeDetails() {
     async function fetchRecipeData() {
       try {
         const data = await downloadData({
-          path: `${id}/recipe.json`,
-          options: { bucket: "recipe-storage" },
+          path: `recipes/${id}/recipe.json`,
+          options: {
+            bucket: { bucketName: "recipe-storage", region: "ap-southeast-2" },
+          },
         }).result
         const text = await data.body.text()
         const recipeData: Recipe = JSON.parse(text)
         setRecipe(recipeData)
       } catch (error) {
         console.error("Error fetching recipe:", error)
-        return <NotFound />
       }
     }
 
@@ -35,19 +36,24 @@ function RecipeDetails() {
     async function fetchRecipeImage() {
       try {
         const data = await getUrl({
-          path: `${id}/image.*`,
-          options: { bucket: "recipe-storage" },
+          path: `recipes/${id}/image.*`,
+          options: {
+            bucket: { bucketName: "recipe-storage", region: "ap-southeast-2" },
+          },
         })
         const text = await data.url.toString()
         setImage(text)
       } catch (error) {
         console.error("Error fetching recipe:", error)
-        return <NotFound />
       }
     }
 
     fetchRecipeImage()
   }, [id])
+
+  if (!recipe && !image) {
+    return <NotFound />
+  }
 
   return recipe ? (
     <div className={styles.recipePage}>
