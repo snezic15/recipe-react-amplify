@@ -1,40 +1,62 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import styles from "./RecipeDetails.module.css"
 import Header from "../header/Header"
 import Footer from "../footer/Footer"
 import NotFound from "../not-found/NotFound"
 import { getUrl, downloadData } from "aws-amplify/storage"
+import { Recipe } from "../../interfaces/recipe"
 
-async function RecipeDetails() {
+function RecipeDetails() {
   const { id } = useParams()
+  const [recipe, setRecipe] = useState<Recipe | undefined>(undefined)
+  const [image, setImage] = useState("")
 
-  let recipe, imageLink
+  useEffect(() => {
+    async function fetchRecipeData() {
+      try {
+        const data = await downloadData({
+          path: `${id}/recipe.json`,
+          options: { bucket: "recipe-storage" },
+        }).result
+        const text = await data.body.text()
+        const recipeData: Recipe = JSON.parse(text)
+        setRecipe(recipeData)
+      } catch (error) {
+        console.error("Error fetching recipe:", error)
+        return <NotFound />
+      }
+    }
 
-  try {
-    imageLink = await getUrl({ path: `recipe-data/${id}/image.*` })
-  } catch (error) {
-    return <NotFound />
-  }
+    fetchRecipeData()
+  }, [id])
 
-  try {
-    recipe = await downloadData({ path: `recipe-data/${id}/recipe.json` })
-  } catch (error) {
-    return <NotFound />
-  }
+  useEffect(() => {
+    async function fetchRecipeImage() {
+      try {
+        const data = await getUrl({
+          path: `${id}/image.*`,
+          options: { bucket: "recipe-storage" },
+        })
+        const text = await data.url.toString()
+        setImage(text)
+      } catch (error) {
+        console.error("Error fetching recipe:", error)
+        return <NotFound />
+      }
+    }
 
-  return (
+    fetchRecipeImage()
+  }, [id])
+
+  return recipe ? (
     <div className={styles.recipePage}>
       <Header />
       <main className={styles.recipeContainer}>
         <h1 className={styles.recipeTitle}>{recipe.name}</h1>
         <p className={styles.recipeServes}>Serves: {recipe.serves}</p>
 
-        <img
-          src={imageLink.url.toString()}
-          alt={recipe.name}
-          className={styles.recipeImage}
-        />
+        <img src={image} alt={recipe.name} className={styles.recipeImage} />
 
         <p className={styles.recipeDescription}>{recipe.description}</p>
 
@@ -74,7 +96,7 @@ async function RecipeDetails() {
       </main>
       <Footer />
     </div>
-  )
+  ) : null
 }
 
 export default RecipeDetails

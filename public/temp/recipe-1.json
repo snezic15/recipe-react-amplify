@@ -2,7 +2,6 @@
   "id": "recipe-1",
   "name": "Recipe 1",
   "serves": 4,
-  "image": "../temp/temp_photo.jpg",
   "description": "Sample description of the recipe",
   "ingredients": [
     {
