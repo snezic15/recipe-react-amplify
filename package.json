@@ -30,6 +30,8 @@
     "@typescript-eslint/parser": "^8.21.0",
     "@vitejs/plugin-react": "^4.3.4",
     "aws-cdk": "^2.176.0",
+    "aws-cdk-lib": "^2.176.0",
+    "constructs": "^10.4.2",
     "depcheck": "^1.4.7",
     "eslint": "^9.18.0",
     "eslint-plugin-react-hooks": "^5.1.0",
