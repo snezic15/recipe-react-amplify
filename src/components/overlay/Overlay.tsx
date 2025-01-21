@@ -1,5 +1,4 @@
 import React from "react"
-import PropTypes from "prop-types"
 import "./Overlay.css"
 
 function Overlay({ icon, title, position, secondaryTitle, body }) {
@@ -15,14 +14,6 @@ function Overlay({ icon, title, position, secondaryTitle, body }) {
       </div>
     </div>
   )
-}
-
-Overlay.propTypes = {
-  icon: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  position: PropTypes.string,
-  secondaryTitle: PropTypes.string.isRequired,
-  body: PropTypes.node.isRequired,
 }
 
 export default Overlay
