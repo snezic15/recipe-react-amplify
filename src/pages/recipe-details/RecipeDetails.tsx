@@ -4,28 +4,28 @@ import styles from "./RecipeDetails.module.css"
 import Header from "../header/Header"
 import Footer from "../footer/Footer"
 import NotFound from "../not-found/NotFound"
-import { getUrl, downloadData } from "aws-amplify/storage"
 import { Recipe } from "../../interfaces/recipe"
+import {
+  fetchRecipeImageUrl,
+  fetchRecipeText,
+} from "../../requests/getRecipeData"
 
 function RecipeDetails() {
   const { id } = useParams()
   const [recipe, setRecipe] = useState<Recipe | undefined>(undefined)
-  const [image, setImage] = useState("")
+  const [image, setImage] = useState<string | undefined>(undefined)
 
   useEffect(() => {
     async function fetchRecipeData() {
-      try {
-        const data = await downloadData({
-          path: `recipes/${id}/recipe.json`,
-          options: {
-            bucket: { bucketName: "recipe-storage", region: "ap-southeast-2" },
-          },
-        }).result
-        const text = await data.body.text()
-        const recipeData: Recipe = JSON.parse(text)
-        setRecipe(recipeData)
-      } catch (error) {
-        console.error("Error fetching recipe:", error)
+      const cachedText = sessionStorage.getItem(`${id}-text`)
+      if (cachedText) {
+        setRecipe(JSON.parse(cachedText))
+      } else {
+        if (id) {
+          const fetchedText = await fetchRecipeText(id)
+          setRecipe(JSON.parse(fetchedText))
+          sessionStorage.setItem(`${id}-text`, fetchedText)
+        }
       }
     }
 
@@ -34,26 +34,20 @@ function RecipeDetails() {
 
   useEffect(() => {
     async function fetchRecipeImage() {
-      try {
-        const data = await getUrl({
-          path: `recipes/${id}/image.*`,
-          options: {
-            bucket: { bucketName: "recipe-storage", region: "ap-southeast-2" },
-          },
-        })
-        const text = await data.url.toString()
-        setImage(text)
-      } catch (error) {
-        console.error("Error fetching recipe:", error)
+      const cachedImageUrl = sessionStorage.getItem(`${id}-image`)
+      if (cachedImageUrl) {
+        setImage(cachedImageUrl)
+      } else {
+        if (id) {
+          const fetchedImageUrl = await fetchRecipeImageUrl(id)
+          setImage(fetchedImageUrl)
+          sessionStorage.setItem(`${id}-image`, fetchedImageUrl)
+        }
       }
     }
 
     fetchRecipeImage()
   }, [id])
-
-  if (!recipe && !image) {
-    return <NotFound />
-  }
 
   return recipe ? (
     <div className={styles.recipePage}>
@@ -102,7 +96,9 @@ function RecipeDetails() {
       </main>
       <Footer />
     </div>
-  ) : null
+  ) : (
+    <NotFound />
+  )
 }
 
 export default RecipeDetails

@@ -1,42 +1,54 @@
 import React from "react"
+import { useState, useEffect } from "react"
 import styles from "./Homepage.module.css"
 import Carousel from "../../components/carousel/Carousel"
 import Header from "../header/Header"
 import Footer from "../footer/Footer"
+import { fetchRecipeImageUrl } from "../../requests/getRecipeData"
 
 function Homepage() {
+  const [image, setImage] = useState<string | undefined>(undefined)
+
   const sampleRecipes = [
     {
       id: "recipe-1",
-      imageSrc: "temp/temp_photo.jpg",
+      imageSrc: image,
       imageAlt: "Sample Recipe 1",
       recipeName: "Sample Recipe 1",
     },
     {
-      id: 2,
-      imageSrc: "temp/temp_photo.jpg",
+      id: "recipe-2",
+      imageSrc: image,
       imageAlt: "Sample Recipe 2",
       recipeName: "Sample Recipe 2",
     },
     {
       id: 3,
-      imageSrc: "temp/temp_photo.jpg",
+      imageSrc: image,
       imageAlt: "Sample Recipe 3",
       recipeName: "Sample Recipe 3",
     },
     {
       id: 4,
-      imageSrc: "temp/temp_photo.jpg",
+      imageSrc: image,
       imageAlt: "Sample Recipe 4",
       recipeName: "Sample Recipe 4",
     },
     {
       id: 5,
-      imageSrc: "temp/temp_photo.jpg",
+      imageSrc: image,
       imageAlt: "Sample Recipe 5",
       recipeName: "Sample Recipe 5",
     },
   ]
+
+  useEffect(() => {
+    async function fetchRecipeImage() {
+      setImage(await fetchRecipeImageUrl("recipe-1"))
+    }
+
+    fetchRecipeImage()
+  }, [])
 
   return (
     <div className={styles.homepage}>

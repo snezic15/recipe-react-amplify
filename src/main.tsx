@@ -12,11 +12,9 @@ const rootElement = document.getElementById("root")
 if (rootElement) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
-    <React.StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   )
 } else {
   console.error("Failed to find the root element")
