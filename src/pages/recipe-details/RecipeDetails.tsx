@@ -6,8 +6,8 @@ import Footer from "../footer/Footer"
 import NotFound from "../not-found/NotFound"
 import { Recipe } from "../../interfaces/recipe"
 import {
+  fetchOneRecipe,
   fetchRecipeImageUrl,
-  fetchRecipeText,
 } from "../../requests/getRecipeData"
 
 function RecipeDetails() {
@@ -17,36 +17,17 @@ function RecipeDetails() {
 
   useEffect(() => {
     async function fetchRecipeData() {
-      const cachedText = sessionStorage.getItem(`${id}-text`)
-      if (cachedText) {
-        setRecipe(JSON.parse(cachedText))
-      } else {
-        if (id) {
-          const fetchedText = await fetchRecipeText(id)
-          setRecipe(JSON.parse(fetchedText))
-          sessionStorage.setItem(`${id}-text`, fetchedText)
+      if (id) {
+        const fetchedRecipe = await fetchOneRecipe(id)
+        if (fetchedRecipe) {
+          const imageUrl = await fetchRecipeImageUrl(fetchedRecipe.id)
+          setImage(imageUrl)
+          setRecipe(fetchedRecipe)
         }
       }
     }
 
     fetchRecipeData()
-  }, [id])
-
-  useEffect(() => {
-    async function fetchRecipeImage() {
-      const cachedImageUrl = sessionStorage.getItem(`${id}-image`)
-      if (cachedImageUrl) {
-        setImage(cachedImageUrl)
-      } else {
-        if (id) {
-          const fetchedImageUrl = await fetchRecipeImageUrl(id)
-          setImage(fetchedImageUrl)
-          sessionStorage.setItem(`${id}-image`, fetchedImageUrl)
-        }
-      }
-    }
-
-    fetchRecipeImage()
   }, [id])
 
   return recipe ? (

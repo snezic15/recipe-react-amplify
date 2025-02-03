@@ -9,6 +9,15 @@ interface IngredientSection {
   ingredients: Ingredient[]
 }
 
+export interface RecipeJson {
+  id: string
+  name: string
+  serves: number
+  description: string
+  ingredients: IngredientSection[]
+  method: string[]
+}
+
 export interface Recipe {
   id: string
   name: string
@@ -17,3 +26,10 @@ export interface Recipe {
   ingredients: IngredientSection[]
   method: string[]
 }
+
+interface RecipeCardInfo {
+  id: string
+  name: string
+}
+
+export type RecipeCards = RecipeCardInfo[]

@@ -12,7 +12,7 @@
 //   }
 // }
 
-// export async function uploadRecipeText(recipeName: string, file: File) {
+// export async function uploadRecipeData(recipeName: string, file: File) {
 //     try {
 //       const data = await getUrl({
 //         path: `recipes/${recipeName}/image.jpg`,

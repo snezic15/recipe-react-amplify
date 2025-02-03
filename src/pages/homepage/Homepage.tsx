@@ -1,53 +1,37 @@
-import React from "react"
-import { useState, useEffect } from "react"
+import React, { useEffect } from "react"
+import { useState } from "react"
 import styles from "./Homepage.module.css"
 import Carousel from "../../components/carousel/Carousel"
 import Header from "../header/Header"
 import Footer from "../footer/Footer"
-import { fetchRecipeImageUrl } from "../../requests/getRecipeData"
+import { fetchRecipesCardData } from "../../requests/getRecipeData"
+import { RecipeCards } from "../../interfaces/recipe"
 
 function Homepage() {
-  const [image, setImage] = useState<string | undefined>(undefined)
-
-  const sampleRecipes = [
-    {
-      id: "recipe-1",
-      imageSrc: image,
-      imageAlt: "Sample Recipe 1",
-      recipeName: "Sample Recipe 1",
-    },
-    {
-      id: "recipe-2",
-      imageSrc: image,
-      imageAlt: "Sample Recipe 2",
-      recipeName: "Sample Recipe 2",
-    },
-    {
-      id: 3,
-      imageSrc: image,
-      imageAlt: "Sample Recipe 3",
-      recipeName: "Sample Recipe 3",
-    },
-    {
-      id: 4,
-      imageSrc: image,
-      imageAlt: "Sample Recipe 4",
-      recipeName: "Sample Recipe 4",
-    },
-    {
-      id: 5,
-      imageSrc: image,
-      imageAlt: "Sample Recipe 5",
-      recipeName: "Sample Recipe 5",
-    },
-  ]
+  const [recipe, setRecipe] = useState<RecipeCards>([])
 
   useEffect(() => {
-    async function fetchRecipeImage() {
-      setImage(await fetchRecipeImageUrl("recipe-1"))
+    async function setCarouselRecipes() {
+      const recipes: RecipeCards = (await fetchRecipesCardData(100)) || []
+
+      if (recipes) {
+        if (recipes.length > 5) {
+          const randomIndexes = new Set<number>()
+          while (randomIndexes.size < 5) {
+            const randomIndex = Math.floor(Math.random() * recipes.length)
+            randomIndexes.add(randomIndex)
+          }
+          const randomRecipes = Array.from(randomIndexes).map(
+            (index) => recipes[index]
+          )
+          setRecipe(randomRecipes)
+        } else {
+          setRecipe(recipes)
+        }
+      }
     }
 
-    fetchRecipeImage()
+    setCarouselRecipes()
   }, [])
 
   return (
@@ -67,7 +51,7 @@ function Homepage() {
 
         <section className={styles.featuredRecipes}>
           <h2>Try something new!</h2>
-          <Carousel recipes={sampleRecipes} />
+          <Carousel recipes={recipe} />
         </section>
       </main>
       <Footer />

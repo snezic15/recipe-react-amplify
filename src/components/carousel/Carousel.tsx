@@ -1,15 +1,36 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Slider from "react-slick"
 import RecipeCard from "../recipe-card/RecipeCard"
 import styles from "./Carousel.module.css"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import { fetchRecipeImageUrl } from "../../requests/getRecipeData"
 
 function Carousel({ recipes }) {
+  const slidesToShow = recipes.length >= 3 ? 3 : recipes.length
+  const [recipeEnriched, setRecipeEnriched] = useState<
+    { id: string; name: string; imageUrl: string }[]
+  >([])
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const enrichedRecipes = await Promise.all(
+        recipes.map(async (recipe) => ({
+          ...recipe,
+          imageUrl: await fetchRecipeImageUrl(recipe.id),
+        }))
+      )
+
+      setRecipeEnriched(enrichedRecipes)
+    }
+
+    fetchImages()
+  }, [recipes])
+
   const settings = {
     dots: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: slidesToShow,
     slidesToScroll: 1,
     infinite: true,
     autoplay: true,
@@ -27,7 +48,7 @@ function Carousel({ recipes }) {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: false, // Disable centerMode for mobile
+          centerMode: false,
         },
       },
       {
@@ -35,7 +56,7 @@ function Carousel({ recipes }) {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: false, // Disable centerMode for mobile
+          centerMode: false,
         },
       },
     ],
@@ -43,18 +64,20 @@ function Carousel({ recipes }) {
 
   return (
     <div className={styles.carouselContainer}>
-      <Slider {...settings}>
-        {recipes.map((recipe) => (
-          <div key={recipe.id} className={styles.slide}>
-            <RecipeCard
-              imageSrc={recipe.imageSrc}
-              imageAlt={recipe.imageAlt}
-              recipeName={recipe.recipeName}
-              recipeId={recipe.id}
-            />
-          </div>
-        ))}
-      </Slider>
+      {slidesToShow && (
+        <Slider {...settings}>
+          {recipeEnriched.map((recipe) => (
+            <div key={recipe.id} className={styles.slide}>
+              <RecipeCard
+                imageSrc={recipe.imageUrl}
+                imageAlt={recipe.name}
+                recipeName={recipe.name}
+                recipeId={recipe.id}
+              />
+            </div>
+          ))}
+        </Slider>
+      )}
     </div>
   )
 }

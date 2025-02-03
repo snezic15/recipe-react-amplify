@@ -2,39 +2,46 @@ import Header from "../header/Header"
 import Footer from "../footer/Footer"
 import { FileUploader } from "@aws-amplify/ui-react-storage"
 import "@aws-amplify/ui-react/styles.css"
-import React, { useState } from "react"
+import React from "react"
+import type { Schema } from "../../../amplify/data/resource"
+import { generateClient } from "aws-amplify/data"
+import testRecipe from "../../temp/recipe-1.json"
 
 function SuggestRecipe() {
-  const [recipeName, setRecipeName] = useState<string>("")
+  const client = generateClient<Schema>()
+  let recipeId = ""
 
-  const setName = (event) => {
-    setRecipeName(event.target.value)
+  const createData = async () => {
+    const temp = await client.models.Recipes.create({
+      name: "New Recipe",
+      isActive: true,
+      recipeContent: JSON.stringify(testRecipe),
+    })
+
+    if (temp.data) {
+      recipeId = temp.data.id
+    } else {
+      window.alert("Failed to create recipe")
+    }
   }
 
   const processFile = async ({ file }) => {
-    return { file, key: `image.jpg` }
+    return { file, key: `${recipeId}.jpg` }
   }
 
   return (
     <div>
       <Header />
       <h1>Suggest a Recipe</h1>
-      <input
-        name="recipe-name"
-        type="text"
-        value={recipeName}
-        onChange={setName}
+      <button onClick={createData}>Create Recipe</button>
+      <FileUploader
+        acceptedFileTypes={["image/*"]}
+        path={"recipeImages/"}
+        autoUpload={false}
+        maxFileCount={1}
+        isResumable
+        processFile={processFile}
       />
-      {recipeName && (
-        <FileUploader
-          acceptedFileTypes={["image/*"]}
-          path={`recipes/${recipeName.replace(" ", "-")}/`}
-          autoUpload={false}
-          maxFileCount={1}
-          isResumable
-          processFile={processFile}
-        />
-      )}
       <Footer />
     </div>
   )
