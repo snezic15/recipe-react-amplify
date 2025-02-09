@@ -1,0 +1,93 @@
+.recipeList {
+  background-color: #faebd7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pageTitle {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.searchBar {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 50%; /* Adjust width as needed */
+  max-width: 500px; /* Limit maximum width */
+  font-size: 1rem;
+}
+
+.recipeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 80%;
+  max-width: 1200px;
+  justify-items: center;
+}
+
+.noResults {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+  grid-column: 1 / -1;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pageButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0 5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.pageButton:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.pageButton:not(:disabled):hover {
+  background-color: #ddd;
+}
+.activePage {
+  background-color: #964b00;
+  color: white;
+}
+
+@media (max-width: 1024px) {
+  .recipeGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .recipeGrid {
+    grid-template-columns: 1fr;
+    width: 90%;
+  }
+  .pageTitle {
+    margin-top: 40px;
+  }
+}

@@ -13,7 +13,7 @@ function SuggestRecipe() {
 
   const createData = async () => {
     const temp = await client.models.Recipes.create({
-      name: "New Recipe",
+      name: "Spaghetti Bolognese",
       isActive: true,
       recipeContent: JSON.stringify(testRecipe),
     })

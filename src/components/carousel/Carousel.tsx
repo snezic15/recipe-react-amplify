@@ -5,12 +5,11 @@ import styles from "./Carousel.module.css"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { fetchRecipeImageUrl } from "../../requests/getRecipeData"
+import { RecipeCards } from "../../interfaces/recipe"
 
 function Carousel({ recipes }) {
   const slidesToShow = recipes.length >= 3 ? 3 : recipes.length
-  const [recipeEnriched, setRecipeEnriched] = useState<
-    { id: string; name: string; imageUrl: string }[]
-  >([])
+  const [recipeEnriched, setRecipeEnriched] = useState<RecipeCards>([])
 
   useEffect(() => {
     const fetchImages = async () => {

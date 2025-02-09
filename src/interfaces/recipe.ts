@@ -30,6 +30,7 @@ export interface Recipe {
 interface RecipeCardInfo {
   id: string
   name: string
+  imageUrl?: string
 }
 
 export type RecipeCards = RecipeCardInfo[]
