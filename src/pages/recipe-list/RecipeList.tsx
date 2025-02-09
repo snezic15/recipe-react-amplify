@@ -16,6 +16,7 @@ function RecipeList() {
   const [recipesPerPage, setRecipesPerPage] = useState(9)
   const [recipe, setRecipe] = useState<RecipeCards>([])
   const [searchQuery, setSearchQuery] = useState("")
+  const [fadeClass, setFadeClass] = useState("")
 
   useEffect(() => {
     async function setCarouselRecipes() {
@@ -77,27 +78,40 @@ function RecipeList() {
     indexOfLastRecipe
   )
 
+  const handlePageChange = (newPage) => {
+    setFadeClass("fade-out")
+    setTimeout(() => {
+      setCurrentPage(newPage)
+      window.scrollTo({ top: 0, behavior: "smooth" })
+      setFadeClass("fade-in")
+    }, 500)
+  }
+
   const goToNextPage = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1)
+      handlePageChange(currentPage + 1)
     }
   }
 
   const goToPrevPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1)
+      handlePageChange(currentPage - 1)
     }
   }
 
   const goToPage = (pageNumber) => {
     if (pageNumber >= 1 && pageNumber <= totalPages) {
-      setCurrentPage(pageNumber)
+      handlePageChange(pageNumber)
     }
   }
 
   const handleSearchChange = (event) => {
+    setFadeClass("fade-out")
     setSearchQuery(event.target.value)
-    setCurrentPage(1)
+    setTimeout(() => {
+      setCurrentPage(1)
+      setFadeClass("fade-in")
+    }, 500)
   }
 
   return (
@@ -113,7 +127,7 @@ function RecipeList() {
           className={styles.searchBar}
         />
 
-        <div className={styles.recipeGrid}>
+        <div className={`${styles.recipeGrid} ${styles[fadeClass]}`}>
           {currentRecipes.length > 0 ? (
             currentRecipes.map((recipe) => (
               <RecipeCard

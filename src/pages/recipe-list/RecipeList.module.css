@@ -37,6 +37,15 @@
   width: 80%;
   max-width: 1200px;
   justify-items: center;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.recipeGrid.fade-out {
+  opacity: 0;
+}
+
+.recipeGrid.fade-in {
+  opacity: 1;
 }
 
 .noResults {
@@ -80,6 +89,10 @@
   .recipeGrid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .searchBar {
+    width: 70%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -89,5 +102,10 @@
   }
   .pageTitle {
     margin-top: 40px;
+  }
+
+  .searchBar {
+    width: 90%;
+    text-align: center;
   }
 }
