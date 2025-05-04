@@ -1,0 +1,90 @@
+.submitRecipePage {
+  background-color: #faebd7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pageTitle {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #000;
+}
+
+.recipeForm {
+  width: 80%;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.textarea {
+  height: 150px; /* Adjust height as needed */
+  resize: vertical; /* Allow vertical resizing */
+}
+
+.fileInput {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.submitButton {
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+  padding: 12px;
+  background-color: #964b00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background-color: #7a3e00;
+}
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .recipeForm {
+    width: 95%;
+  }
+  .pageTitle {
+    margin-top: 40px;
+  }
+}

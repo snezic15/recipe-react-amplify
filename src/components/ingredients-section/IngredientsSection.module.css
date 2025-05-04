@@ -1,0 +1,104 @@
+.ingredientsSection {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+.section {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.sectionNameInput {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0 10px; /* Add horizontal margin */
+  font-size: 1rem;
+}
+
+.sectionButton {
+  width: 30px; /* Reduced size */
+  height: 30px; /* Reduced size */
+  margin: 0 5px; /* Add horizontal margin */
+}
+.ingredientButton {
+  width: 20px; /* Reduced size */
+  height: 20px; /* Reduced size */
+  margin: 0 5px; /* Add horizontal margin */
+}
+
+.addButton,
+.removeButton {
+  background-color: #7a3e00;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.addButton:hover,
+.removeButton:hover {
+  background-color: #663100;
+}
+
+.ingredientLine {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.ingredientQuantity,
+.ingredientMeasurement,
+.ingredientName {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.ingredientQuantity {
+  margin-left: 10px;
+}
+
+.ingredientQuantity,
+.ingredientMeasurement {
+  width: 18%;
+}
+
+.ingredientName {
+  flex: 1; /* Let the name input take up the remaining space */
+  margin: 0 10px;
+}
+
+.buttonPlaceholder {
+  visibility: hidden; /* Hide the placeholder, but it still takes up space */
+}
+
+/* Specific placeholders for section and ingredient buttons */
+.sectionButtonPlaceholder {
+  width: 30px;
+  height: 30px;
+  margin: 0 5px;
+}
+.ingredientButtonPlaceholder {
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+}
